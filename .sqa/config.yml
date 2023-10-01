@@ -1,0 +1,58 @@
+config:
+  credentials: []
+  project_repos:
+    github.com/EOSC-synergy/sqaaas-tooling:
+      branch: release/1.7.11
+      repo: https://github.com/EOSC-synergy/sqaaas-tooling
+    github.com/railtoolkit/TrainRuns.jl:
+      branch: main
+      repo: https://github.com/railtoolkit/TrainRuns.jl
+environment:
+  JPL_DOCKERFORCEBUILD: enabled
+  JPL_KEEPGOING: enabled
+sqa_criteria:
+  QC.Acc:
+    repos:
+      github.com/railtoolkit/TrainRuns.jl git:
+        commands:
+        - /usr/bin/env sh .sqa/script.lanky-seashell-spider.sh
+        container: qc.acc_skinny-charcoal-booby
+  QC.Doc:
+    repos:
+      github.com/railtoolkit/TrainRuns.jl find_doc_files.py:
+        commands:
+        - /usr/bin/env sh .sqa/script.craggy-black-badger.sh
+        container: qc.doc_thirsty-white-ray
+      github.com/railtoolkit/TrainRuns.jl git:
+        commands:
+        - /usr/bin/env sh .sqa/script.geeky-orange-kudu.sh
+        container: qc.doc_homey-heliotrope-mau
+      github.com/railtoolkit/TrainRuns.jl markdownlint:
+        commands:
+        - /usr/bin/env sh .sqa/script.snippy-brown-caterpillar.sh
+        container: qc.doc_slimy-linen-hornet
+  QC.Lic:
+    repos:
+      github.com/railtoolkit/TrainRuns.jl licensee:
+        commands:
+        - /usr/bin/env sh .sqa/script.chewy-turquoise-salamander.sh
+        container: qc.lic_squeaky-corn-dugong
+  QC.Met:
+    repos:
+      github.com/railtoolkit/TrainRuns.jl cff-converter-python:
+        commands:
+        - /usr/bin/env sh .sqa/script.scanty-celadon-buzzard.sh
+        container: qc.met_nerdy-cream-lobster
+  QC.Sty:
+    repos:
+      github.com/railtoolkit/TrainRuns.jl jsonlint:
+        commands:
+        - /usr/bin/env sh .sqa/script.scummy-magenta-bear.sh
+        container: qc.sty_scanty-brass-shrew
+  QC.Ver:
+    repos:
+      github.com/railtoolkit/TrainRuns.jl get_git_tags.py:
+        commands:
+        - /usr/bin/env sh .sqa/script.silly-rust-eagle.sh
+        container: qc.ver_snippy-orange-barb
+timeout: 5400
